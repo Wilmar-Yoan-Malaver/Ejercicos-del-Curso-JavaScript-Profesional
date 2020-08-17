@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scope</title>
+</head>
+<body>
+  <a href="../index.html">Go Back</a>
+  <p><em>Abre en la consola</em></p>
+  <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+  <script>
+    // Scope global
+    // var message = "Hello, Platzi!";
+    // // Scope Funtion
+    // var $ = function(message) {
+    //   console.log('Say: ' + message)
+    // }
+
+    // function printNumber() {
+    //   for(let i = 0; i < 10; i++) {
+    //     setTimeout(function(){
+    //       console.log(i);
+    //     }, 100)
+    //   }
+    // }
+
+    // function printNumber() {
+    //   for(var i = 0; i < 10; i++) {
+    //     function eventuallyPrintNumber(n) {
+    //       setTimeout(function(){
+    //         console.log(n);
+    //       }, 100)
+    //     }
+    //     eventuallyPrintNumber(i);
+    //   }
+    // }
+    // printNumber();
+
+    // Block Scope
+    function printNumber2() {
+      for(let i = 0; i < 10; i++) {
+          setTimeout(function(){
+            console.log(i);
+          }, 100)
+      }
+    }
+    printNumber2();
+    // Module Scope
+    
+  </script>
+</body>
+</html>

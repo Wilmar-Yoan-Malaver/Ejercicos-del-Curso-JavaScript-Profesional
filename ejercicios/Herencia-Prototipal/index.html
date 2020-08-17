@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Herencia Prototipal</title>
+</head>
+<body>
+  <a href="../index.html"">Go Back</a>
+  <p><em>Abre en la consola</em></p>
+  <p>
+    Herencia Prototipal
+    Por default los objetos en JavaScript tienen cómo prototipo a Object que es el punto de partida de todos los objetos, es el prototipo padre. Object es la raíz de todo, por lo tanto tiene un prototipo padre undefined.</br></br>
+
+    Cuando se llama a una función o variable que no se encuentra en el mismo objeto que la llamó, se busca en toda la prototype chain hasta encontrarla o regresar undefined.</br></br>
+
+    La función hasOwnProperty sirve para verificar si una propiedad es parte del objeto o si viene heredada desde su prototype chain.</br></br>
+  </p>
+  <script>
+    //new es un atajo (Azucar sintetica) para llevar Hero.prototype al objeto
+
+
+    function Hero (name) {
+    // this  = Object.create(Hero.prototype);
+    this.name = name
+
+    //  return this este ocurre automaticamente no hay que hacerlo
+    }
+
+    Hero.prototype.saludar =  function() {
+      console.log(`New: ${this.name} `)
+    }
+    
+    const zelda = new Hero('Zelda')
+    zelda.saludar();
+    const link =  new Hero('Link')
+    link.saludar();
+    //Propiedades de la instancia
+    console.log('Name: ', zelda.name);
+    //Propiedades de la "clase"
+    console.log('Saludar: ', zelda.saludar);
+    //Propiedades heredadas ej: toString
+    console.log('toString: ', zelda.toString);
+    //hasOwnProperty (de do+onde sañe toString o esto?)
+    console.log('zelda.hasOwnProperty("name"):', zelda.hasOwnProperty("name"))
+    console.log('zelda.hasOwnProperty("saludar"):', zelda.hasOwnProperty("saludar"))
+
+  </script>
+</body>
+</html>

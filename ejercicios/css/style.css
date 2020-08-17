@@ -1,0 +1,34 @@
+body {
+  margin:0;
+  padding:0;
+  font-family:Arial;
+  display:grid;
+  
+}
+.container {
+  width: 100%;
+  overflow:scroll;
+  padding: 30px;
+  position:relative;
+}
+.container__blog {
+  white-space: nowrap;
+  margin:70px 0px;
+  padding-bottom: 10px;
+  /*background-color:black;*/
+  width: 50%;
+  height:300px;
+  border-radius:10px;
+  overflow:hidden;
+  margin-right: 10px;
+  display:inline-block;
+  border: 1px solid red;
+}
+.title {
+  text-align: center;
+}
+.text {
+  text-align: left;
+  margin-left: 8px;
+}
+ 
