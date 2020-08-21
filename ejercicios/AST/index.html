@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abstrac Syntax Tree en Practica</title>
+</head>
+<body>
+  <a href="../index.html"">Go Back</a>
+  <p><em>Abre en la consola</em></p>
+  <p>colocar el siguiente codigo en el recuadro izq Arriba</p>
+  <p>const pi = 3.14156;
+    const half_pi = 1.57075;
+    //variables constantes
+    //variabels que guarden un numero
+    
+    // El numbre de la variables tiene que estar en uppercase</p>
+  <p>
+    export default function(context) {
+      return {
+        VariableDeclaration (node) {
+          console.log(node)
+          //tipo de variable
+          if (node.kind === "const" ) {
+            const declaration = node.declarations[0];
+            
+            //asegurarnos que el valor es un número
+            if (typeof declaration.init.value === "number"){
+              if(declaration.id.name !== declaration.id.name.toUpperCase()) {
+                  context.report({
+                    node: declaration.id,
+                    message: "El nombre de la variable debe estar en mayusculas",
+                    fix: function(fixer) {
+                      return fixer.replaceText(declaration.id, declaration.id.name.toUpperCase())
+                      }
+                    })
+                }
+            }
+          }
+        }
+      };
+    };
+  </p>
+  <script>
+
+  </script>
+</body>
+</html>
