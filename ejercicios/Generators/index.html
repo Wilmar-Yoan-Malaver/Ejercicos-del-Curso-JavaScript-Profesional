@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generators</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <a href="../index.html"">Go Back</a>
+  <p><em>Abre en la consola</em></p>
+  <h1>Generators</h1>
+  <p>Los generadores son funciones especiales, pueden pausar su ejecución y luego volver al punto donde se quedaron recordando su scope.
+  </p>
+  <p>Algunas de sus características:</p>
+    <ol>
+      <li>Los generadores regresan una función.</li>
+      <li>Empiezan suspendidos y se tiene que llamar next para que ejecuten.</li>
+      <li>Regresan un value y un boolean done que define si ya terminaron.</li>
+      <li><em>yield</em> es la instrucción que regresa un valor cada vez que llamamos a next y detiene la ejecución del generador.
+      </li>
+    </li>
+  <script>
+    // Los generadores son funciones de las que se pueden salir y volver a entrar
+    // Su contexto (asociacion de variables) será conservado entra las reentradas.
+    // Cada vez que llamamos next , la ejecucion del generator va a continuar hasta el proximo yield.
+
+    function* simpleGenerator() {
+      console.log('GENERATOR START');
+      yield 1;
+      yield 2;
+      yield 3;
+      console.log('GENERATOR END');
+    }
+
+    // const gen = simpleGenerator();
+    // Podemos hacer generator infinitos 
+    function* idMarker() {
+      let id = 1;
+      while(true) {
+        yield id ;
+        id = id + 1;
+      }
+    }
+
+    // Cuando llamamos next también podemos pasar valores que la funcion reciba.llamamos
+    function* idMarkerWithReset() {
+      let id = 1;
+      let reset;
+      while(true) {
+        reset = yield id;
+        if (reset) {
+          id = 1;
+        } else {
+          id = id + 1;
+        }
+      }
+    }
+
+    //  Ahora hagamos un ejemplo algo mas complejo: La secuencia fibonacci.|
+
+    function* fibonacci() {
+      let a = 1;
+      let b = 1;
+
+      while(true) {
+        const nextnumber = a + b ;
+        a = b;
+        b = nextnumber;
+        yield nextnumber;
+      }
+    }
+  </script> 
+</body>
+</html>
