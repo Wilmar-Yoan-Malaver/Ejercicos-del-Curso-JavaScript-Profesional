@@ -27,16 +27,16 @@
       const apiKey = 'b89fc45c2067cbd33560270639722eae';
 
       async function getMovie(id) {
-      const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
-      const response = await fetch(url)
-      const data = await response.json();
-      return data;
+        const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
       }
 
-       async function getPopularMovies() {
+      async function getPopularMovies() {
         const url = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}`;
         const response = await fetch(url);
-        const data = await  response.json()
+        const data = await response.json();
         return data.results;
       }
 
@@ -49,16 +49,16 @@
         // } catch (error) {
         //   console.log(error.message);
         // }
-          const popularMovies = await getPopularMovies();
-          const ids = popularMovies.slice(0, n).map(movie => movie.id);
-          return ids;
+        const popularMovies = await getPopularMovies();
+        const ids = popularMovies.slice(0, n).map((movie) => movie.id);
+        return ids;
       }
 
       function renderMovies(movies) {
         const movieList = document.getElementById('movies');
         movieList.innerHTML = '';
 
-        movies.forEach(movie => {
+        movies.forEach((movie) => {
           const listItem = document.createElement('li');
           listItem.innerHTML = `
             <img src="https://image.tmdb.org/t/p/w342${movie.poster_path}" />
@@ -71,43 +71,42 @@
       }
 
       async function getTopMoviesInSequence() {
-        const ids = await getTopMoviesIds()
-        const movies = []
+        const ids = await getTopMoviesIds();
+        const movies = [];
         for (const id of ids) {
-          const movie = await getMovie(id)
-          movies.push(movie)
+          const movie = await getMovie(id);
+          movies.push(movie);
         }
         return movies;
       }
 
       async function getTopMoviesInParallel() {
-        const ids = await getTopMoviesIds()
-        const moviePromises = ids.map(id => getMovie(id));
+        const ids = await getTopMoviesIds();
+        const moviePromises = ids.map((id) => getMovie(id));
 
         const movies = await Promise.all(moviePromises);
         return movies;
-
       }
 
       async function getFastestTopMovie() {
-        const ids = await getTopMoviesIds()
-        const moviePromises = ids.map(id => getMovie(id))
+        const ids = await getTopMoviesIds();
+        const moviePromises = ids.map((id) => getMovie(id));
         const movies = await Promise.race(moviePromises);
 
         return movies;
       }
 
-      document.getElementById('sequence').onclick = async function() {
+      document.getElementById('sequence').onclick = async function () {
         const movies = await getTopMoviesInSequence();
         renderMovies(movies);
       };
 
-      document.getElementById('parallel').onclick = async function() {
+      document.getElementById('parallel').onclick = async function () {
         const movies = await getTopMoviesInParallel();
         renderMovies(movies);
       };
 
-      document.getElementById('fastest').onclick = async function() {
+      document.getElementById('fastest').onclick = async function () {
         const movie = await getFastestTopMovie();
         renderMovies([movie]);
       };
