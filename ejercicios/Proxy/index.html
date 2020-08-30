@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proxy</title>
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+  </head>
+  <body>
+    <section class="container">
+      <div class="container__blog">
+        <a href="../index.html">Go Back</a>
+        <p class="text"><em>Abre en la consola</em></p>
+        <h1 class="title">Proxy</h1>
+        <p>
+          El proxy sirve para interceptar la lectura de propiedades de un objeto (los get,
+          y set) entre muchas otras funciones. Así, antes de que la llamada llegue al
+          objeto podemos manipularla con una lógica que nosotros definamos.
+        </p>
+      </div>
+    </section>
+
+    <script src="https://unpkg.com/fast-levenshtein@2.0.6/levenshtein.js"></script>
+    <script>
+      //Proxy es parecido a getter y setters
+      // Usa un concepto que se llaman traps: son interceptores de llamadas
+      // https://developer.mozila.org /en-US/docs/Web/JavaScript/Reference/Global_objects/
+      // Creemos un ejemplo donde interceptemos llamadas para leer una propiedad
+      // si la propiedad existe la regresamos
+      // Si no existe, entonces sugerimos una que pueda funcionar
+      // Para eso vamos a usar un algoritmo que se llama leveshtein. (Window.leveshtein)
+      // Ejemplos de leveshtein distance (usa window.leveshtein)
+
+      const target = {
+        red: 'Rojo',
+        green: 'Verde',
+        blue: 'Azul',
+      };
+
+      const handler = {
+        get(obj, prop) {
+          // debugger;
+          if (prop in obj) {
+            return obj[prop];
+          }
+
+          const suggestion = Object.keys(obj).find((key) => {
+            return Levenshtein.get(key, prop) <= 3;
+          });
+
+          if (suggestion) {
+            console.log(`${prop} no se encontró. Quisiste decir ${suggestion}?`);
+          }
+
+          return obj[prop];
+        },
+      };
+
+      const p = new Proxy(target, handler);
+    </script>
+  </body>
+</html>
